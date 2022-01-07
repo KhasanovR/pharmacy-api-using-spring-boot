@@ -51,7 +51,7 @@ public class Drug {
     private Boolean system;
     @ManyToMany
     @JoinTable(
-            name = "belonging_recommendations",
+            name = "recommended_drugs",
             joinColumns = @JoinColumn(name = "drug_id"),
             inverseJoinColumns = @JoinColumn(name = "recommendation_id"))
     private Set<Recommendation> recommendations;
