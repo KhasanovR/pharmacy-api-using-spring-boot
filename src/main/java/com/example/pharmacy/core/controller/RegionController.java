@@ -12,7 +12,7 @@ import java.net.URI;
 import java.util.Collection;
 
 @RestController
-@RequestMapping("/regions")
+@RequestMapping("/api/regions")
 @Slf4j
 public class RegionController {
 

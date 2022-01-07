@@ -12,7 +12,7 @@ import java.net.URI;
 import java.util.Collection;
 
 @RestController
-@RequestMapping("/manufacturers")
+@RequestMapping("/api/manufacturers")
 @Slf4j
 public class ManufacturerController {
 

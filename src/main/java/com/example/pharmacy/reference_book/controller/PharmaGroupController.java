@@ -12,7 +12,7 @@ import java.net.URI;
 import java.util.Collection;
 
 @RestController
-@RequestMapping("/pharma-groups")
+@RequestMapping("/api/pharma-groups")
 @Slf4j
 public class PharmaGroupController {
 
