@@ -37,23 +37,9 @@ public class InternationalNameController {
         return ResponseEntity.ok().body(internationalName);
     }
 
-    @GetMapping("/ru/{name_ru}")
-    public ResponseEntity<?> findInternationalName_ru(@PathVariable("name_ru") String name_ru) {
-        InternationalName internationalName = this.internationalNameService.findInternationalNameByName_ru(name_ru);
-        log.info("listing: {}", internationalName);
-        return ResponseEntity.ok().body(internationalName);
-    }
-
-    @GetMapping("/en/{name_en}")
-    public ResponseEntity<?> findInternationalName_en(@PathVariable("name_en") String name_en) {
-        InternationalName internationalName = this.internationalNameService.findInternationalNameByName_en(name_en);
-        log.info("listing: {}", internationalName);
-        return ResponseEntity.ok().body(internationalName);
-    }
-
     @PostMapping("/add")
-    public ResponseEntity<?> registerInternationalName(@RequestBody InternationalName drug) {
-        InternationalName savedInternationalName = this.internationalNameService.saveInternationalName(drug);
+    public ResponseEntity<?> registerInternationalName(@RequestBody InternationalName internationalName) {
+        InternationalName savedInternationalName = this.internationalNameService.saveInternationalName(internationalName);
         URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/international-names/").toUriString()
                 + savedInternationalName.getId());
         return ResponseEntity.created(uri).body(savedInternationalName);
@@ -66,7 +52,7 @@ public class InternationalNameController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<?> removeInternationalName(@PathVariable("id") Long id){
+    public ResponseEntity<?> removeInternationalNameById(@PathVariable("id") Long id){
         this.internationalNameService.deleteInternationalNameById(id);
         return ResponseEntity.ok().build();
     }

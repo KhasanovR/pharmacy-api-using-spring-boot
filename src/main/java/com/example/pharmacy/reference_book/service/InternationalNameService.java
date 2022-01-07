@@ -35,35 +35,11 @@ public class InternationalNameService {
                 );
     }
 
-    public InternationalName findInternationalNameByName_en(String name_en) {
-        return internationalNameRepository
-                .findByName_en(name_en)
-                .orElseThrow(
-                        () -> new InternationalNameNotFoundException("InternationalName by name " + name_en + " was not found")
-                );
-    }
-
-    public InternationalName findInternationalNameByName_ru(String name_ru) {
-        return internationalNameRepository
-                .findByName_ru(name_ru)
-                .orElseThrow(
-                        () -> new InternationalNameNotFoundException("InternationalName by name " + name_ru + " was not found")
-                );
-    }
-
     public InternationalName updateInternationalName(InternationalName InternationalName) {
         return internationalNameRepository.save(InternationalName);
     }
 
     public void deleteInternationalNameById(Long id) {
         internationalNameRepository.deleteInternationalNameById(id);
-    }
-
-    public void deleteInternationalNameByName_en(String name_en) {
-        internationalNameRepository.deleteInternationalNameByName_en(name_en);
-    }
-
-    public void deleteInternationalNameByName_ru(String name_ru) {
-        internationalNameRepository.deleteInternationalNameByName_ru(name_ru);
     }
 }
