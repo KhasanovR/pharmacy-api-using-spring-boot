@@ -1,4 +1,4 @@
-package com.example.pharmacy.core.security;
+package com.example.pharmacy.core.config;
 
 import com.example.pharmacy.core.filter.CustomAuthenticationFilter;
 import com.example.pharmacy.core.filter.CustomAuthorizationFilter;
