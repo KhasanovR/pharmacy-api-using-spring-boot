@@ -38,16 +38,16 @@ public class PharmaGroupController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<?> registerPharmaGroup(@RequestBody PharmaGroup drug) {
-        PharmaGroup savedPharmaGroup = this.pharmaGroupService.savePharmaGroup(drug);
+    public ResponseEntity<?> registerPharmaGroup(@RequestBody PharmaGroup pharmaGroup) {
+        PharmaGroup savedPharmaGroup = this.pharmaGroupService.savePharmaGroup(pharmaGroup);
         URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/pharma-groups/").toUriString()
                 + savedPharmaGroup.getId());
         return ResponseEntity.created(uri).body(savedPharmaGroup);
     }
 
     @PutMapping("/update")
-    public ResponseEntity<?> updatePharmaGroup(@RequestBody PharmaGroup drug) {
-        PharmaGroup updatedPharmaGroup = this.pharmaGroupService.updatePharmaGroup(drug);
+    public ResponseEntity<?> updatePharmaGroup(@RequestBody PharmaGroup pharmaGroup) {
+        PharmaGroup updatedPharmaGroup = this.pharmaGroupService.updatePharmaGroup(pharmaGroup);
         return ResponseEntity.ok().body(updatedPharmaGroup);
     }
 

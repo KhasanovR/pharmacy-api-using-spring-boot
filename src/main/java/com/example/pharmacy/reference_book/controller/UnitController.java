@@ -38,16 +38,16 @@ public class UnitController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<?> registerUnit(@RequestBody Unit drug) {
-        Unit savedUnit = this.unitService.saveUnit(drug);
+    public ResponseEntity<?> registerUnit(@RequestBody Unit unit) {
+        Unit savedUnit = this.unitService.saveUnit(unit);
         URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/units/").toUriString()
                 + savedUnit.getId());
         return ResponseEntity.created(uri).body(savedUnit);
     }
 
     @PutMapping("/update")
-    public ResponseEntity<?> updateUnit(@RequestBody Unit drug) {
-        Unit updatedUnit = this.unitService.updateUnit(drug);
+    public ResponseEntity<?> updateUnit(@RequestBody Unit unit) {
+        Unit updatedUnit = this.unitService.updateUnit(unit);
         return ResponseEntity.ok().body(updatedUnit);
     }
 

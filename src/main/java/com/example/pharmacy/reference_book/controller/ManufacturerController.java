@@ -38,16 +38,16 @@ public class ManufacturerController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<?> registerManufacturer(@RequestBody Manufacturer drug) {
-        Manufacturer savedManufacturer = this.manufacturerService.saveManufacturer(drug);
+    public ResponseEntity<?> registerManufacturer(@RequestBody Manufacturer manufacturer) {
+        Manufacturer savedManufacturer = this.manufacturerService.saveManufacturer(manufacturer);
         URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/manufacturers/").toUriString()
                 + savedManufacturer.getId());
         return ResponseEntity.created(uri).body(savedManufacturer);
     }
 
     @PutMapping("/update")
-    public ResponseEntity<?> updateManufacturer(@RequestBody Manufacturer drug) {
-        Manufacturer updatedManufacturer = this.manufacturerService.updateManufacturer(drug);
+    public ResponseEntity<?> updateManufacturer(@RequestBody Manufacturer manufacturer) {
+        Manufacturer updatedManufacturer = this.manufacturerService.updateManufacturer(manufacturer);
         return ResponseEntity.ok().body(updatedManufacturer);
     }
 

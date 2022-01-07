@@ -38,16 +38,16 @@ public class RecommendationController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<?> registerRecommendation(@RequestBody Recommendation drug) {
-        Recommendation savedRecommendation = this.recommendationService.saveRecommendation(drug);
+    public ResponseEntity<?> registerRecommendation(@RequestBody Recommendation recommendation) {
+        Recommendation savedRecommendation = this.recommendationService.saveRecommendation(recommendation);
         URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/recommendations/").toUriString()
                 + savedRecommendation.getId());
         return ResponseEntity.created(uri).body(savedRecommendation);
     }
 
     @PutMapping("/update")
-    public ResponseEntity<?> updateRecommendation(@RequestBody Recommendation drug) {
-        Recommendation updatedRecommendation = this.recommendationService.updateRecommendation(drug);
+    public ResponseEntity<?> updateRecommendation(@RequestBody Recommendation recommendation) {
+        Recommendation updatedRecommendation = this.recommendationService.updateRecommendation(recommendation);
         return ResponseEntity.ok().body(updatedRecommendation);
     }
 
