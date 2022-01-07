@@ -23,7 +23,7 @@ public class Country {
     @Id
     @GeneratedValue(strategy = AUTO)
     private Long id;
-    @Column(nullable = false)
+    @Column(unique = true, nullable = false)
     private String name;
     @CreatedDate
     private Instant createdAt;
