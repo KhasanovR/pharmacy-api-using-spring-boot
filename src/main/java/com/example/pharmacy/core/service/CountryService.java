@@ -1,5 +1,6 @@
 package com.example.pharmacy.core.service;
 
+import com.example.pharmacy.core.exception.CountryNotFoundException;
 import com.example.pharmacy.core.model.Country;
 import com.example.pharmacy.core.repository.CountryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +32,7 @@ public class CountryService {
         return countryRepository
                 .findById(id)
                 .orElseThrow(
-                        () -> new RuntimeException("Country by id " + id + " was not found")
+                        () -> new CountryNotFoundException("Country by id " + id + " was not found")
                 );
     }
 
@@ -39,7 +40,7 @@ public class CountryService {
         return countryRepository
                 .findByName(name)
                 .orElseThrow(
-                        () -> new RuntimeException("Country by name " + name + " was not found")
+                        () -> new CountryNotFoundException("Country by name " + name + " was not found")
                 );
     }
 
