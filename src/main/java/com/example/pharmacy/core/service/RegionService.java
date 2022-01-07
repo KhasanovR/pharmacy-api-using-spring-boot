@@ -1,5 +1,6 @@
 package com.example.pharmacy.core.service;
 
+import com.example.pharmacy.core.exception.RegionNotFoundException;
 import com.example.pharmacy.core.model.Country;
 import com.example.pharmacy.core.model.Region;
 import com.example.pharmacy.core.repository.RegionRepository;
@@ -31,7 +32,7 @@ public class RegionService {
         return RegionRepository
                 .findById(id)
                 .orElseThrow(
-                        () -> new RuntimeException("Region by id " + id + " was not found")
+                        () -> new RegionNotFoundException("Region by id " + id + " was not found")
                 );
     }
 
