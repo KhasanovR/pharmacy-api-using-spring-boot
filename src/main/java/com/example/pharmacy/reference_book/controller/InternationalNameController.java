@@ -12,7 +12,7 @@ import java.net.URI;
 import java.util.Collection;
 
 @RestController
-@RequestMapping("/international-names")
+@RequestMapping("/api/international-names")
 @Slf4j
 public class InternationalNameController {
 
