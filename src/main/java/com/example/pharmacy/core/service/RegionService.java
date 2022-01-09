@@ -1,5 +1,6 @@
 package com.example.pharmacy.core.service;
 
+import com.example.pharmacy.account.model.AppUser;
 import com.example.pharmacy.core.exception.RegionNotFoundException;
 import com.example.pharmacy.core.model.Country;
 import com.example.pharmacy.core.model.Region;
@@ -8,11 +9,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.time.Instant;
 import java.util.Collection;
 
 @Service
 @Transactional
 public class RegionService {
+
     private final RegionRepository RegionRepository;
 
     @Autowired
@@ -20,11 +23,16 @@ public class RegionService {
         this.RegionRepository = RegionRepository;
     }
 
-    public Region saveRegion(Region Region) {
-        return RegionRepository.save(Region);
+    public Region saveRegion(Region Region, AppUser user) {
+        Region save = RegionRepository.save(Region);
+        save.setCreatedAt(Instant.now());
+        save.setCreatedBy(user);
+        save.setLastModifiedAt(save.getCreatedAt());
+        save.setLastModifiedBy(save.getCreatedBy());
+        return save;
     }
 
-    public Collection<Region> getCountries() {
+    public Collection<Region> getRegions() {
         return RegionRepository.findAll();
     }
 
@@ -36,31 +44,14 @@ public class RegionService {
                 );
     }
 
-    public Collection<Region> findRegionsByCountry(Country country) {
-        return RegionRepository
-                .findRegionsByCountry(country);
-    }
-
-    public Collection<Region> findRegionsByParent(Region parent) {
-        return RegionRepository
-                .findRegionsByParent(parent);
-    }
-
-    public Region updateRegion(Region Region) {
-        return RegionRepository.save(Region);
+    public Region updateRegion(Region Region, AppUser user) {
+        Region update = RegionRepository.save(Region);
+        update.setLastModifiedAt(Instant.now());
+        update.setLastModifiedBy(user);
+        return update;
     }
 
     public void deleteRegionById(Long id) {
         RegionRepository.deleteRegionById(id);
     }
-
-    public void deleteRegionsByCountry(Country country) {
-        RegionRepository.deleteRegionsByCountry(country);
-    }
-
-    public void deleteRegionsByParent(Region parent) {
-        RegionRepository.deleteRegionsByParent(parent);
-    }
-
-
 }

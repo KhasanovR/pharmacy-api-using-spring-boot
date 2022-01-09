@@ -1,5 +1,6 @@
 package com.example.pharmacy.core.service;
 
+import com.example.pharmacy.account.model.AppUser;
 import com.example.pharmacy.core.exception.CountryNotFoundException;
 import com.example.pharmacy.core.model.Country;
 import com.example.pharmacy.core.repository.CountryRepository;
@@ -7,8 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.time.Instant;
 import java.util.Collection;
-import java.util.Optional;
 
 @Service
 @Transactional
@@ -20,8 +21,13 @@ public class CountryService {
         this.countryRepository = countryRepository;
     }
 
-    public Country saveCountry(Country country) {
-        return countryRepository.save(country);
+    public Country saveCountry(Country country, AppUser user) {
+        Country save = countryRepository.save(country);
+        save.setCreatedAt(Instant.now());
+        save.setCreatedBy(user);
+        save.setLastModifiedAt(save.getCreatedAt());
+        save.setLastModifiedBy(save.getCreatedBy());
+        return save;
     }
 
     public Collection<Country> getCountries() {
