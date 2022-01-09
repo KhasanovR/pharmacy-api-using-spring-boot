@@ -1,5 +1,6 @@
 package com.example.pharmacy.reference_book.service;
 
+import com.example.pharmacy.account.model.AppUser;
 import com.example.pharmacy.reference_book.exception.ManufacturerNotFoundException;
 import com.example.pharmacy.reference_book.model.Manufacturer;
 import com.example.pharmacy.reference_book.repository.ManufacturerRepository;
@@ -7,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.time.Instant;
 import java.util.Collection;
 
 @Service
@@ -19,8 +21,13 @@ public class ManufacturerService {
         this.manufacturerRepository = manufacturerRepository;
     }
 
-    public Manufacturer saveManufacturer(Manufacturer manufacturer) {
-        return manufacturerRepository.save(manufacturer);
+    public Manufacturer saveManufacturer(Manufacturer manufacturer, AppUser user) {
+        Manufacturer save = manufacturerRepository.save(manufacturer);
+        save.setCreatedAt(Instant.now());
+        save.setCreatedBy(user);
+        save.setLastModifiedAt(save.getCreatedAt());
+        save.setLastModifiedBy(save.getCreatedBy());
+        return save;
     }
 
     public Collection<Manufacturer> getManufacturers() {
@@ -35,23 +42,15 @@ public class ManufacturerService {
                 );
     }
 
-    public Manufacturer findManufacturerByName(String name) {
-        return manufacturerRepository
-                .findByName(name)
-                .orElseThrow(
-                        () -> new ManufacturerNotFoundException("Manufacturer by name " + name + " was not found")
-                );
-    }
-
-    public Manufacturer updateManufacturer(Manufacturer manufacturer) {
-        return manufacturerRepository.save(manufacturer);
+    public Manufacturer updateManufacturer(Manufacturer manufacturer, AppUser user) {
+        Manufacturer update = manufacturerRepository.save(manufacturer);
+        update.setLastModifiedAt(Instant.now());
+        update.setLastModifiedBy(user);
+        return update;
     }
 
     public void deleteManufacturerById(Long id) {
         manufacturerRepository.deleteManufacturerById(id);
     }
 
-    public void deleteManufacturerByName(String name) {
-        manufacturerRepository.deleteManufacturerByName(name);
-    }
 }

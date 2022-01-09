@@ -1,5 +1,6 @@
 package com.example.pharmacy.reference_book.service;
 
+import com.example.pharmacy.account.model.AppUser;
 import com.example.pharmacy.reference_book.exception.DrugNotFoundException;
 import com.example.pharmacy.reference_book.model.Drug;
 import com.example.pharmacy.reference_book.repository.DrugRepository;
@@ -7,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.time.Instant;
 import java.util.Collection;
 
 @Service
@@ -19,8 +21,13 @@ public class DrugService {
         this.drugRepository = drugRepository;
     }
 
-    public Drug saveDrug(Drug drug) {
-        return drugRepository.save(drug);
+    public Drug saveDrug(Drug drug, AppUser user) {
+        Drug save = drugRepository.save(drug);
+        save.setCreatedAt(Instant.now());
+        save.setCreatedBy(user);
+        save.setLastModifiedAt(save.getCreatedAt());
+        save.setLastModifiedBy(save.getCreatedBy());
+        return save;
     }
 
     public Collection<Drug> getDrugs() {
@@ -35,23 +42,14 @@ public class DrugService {
                 );
     }
 
-    public Drug findDrugByName(String name) {
-        return drugRepository
-                .findByName(name)
-                .orElseThrow(
-                        () -> new DrugNotFoundException("Drug by name " + name + " was not found")
-                );
-    }
-
-    public Drug updateDrug(Drug drug) {
-        return drugRepository.save(drug);
+    public Drug updateDrug(Drug drug, AppUser user) {
+        Drug update = drugRepository.save(drug);
+        update.setLastModifiedAt(Instant.now());
+        update.setLastModifiedBy(user);
+        return update;
     }
 
     public void deleteDrugById(Long id) {
         drugRepository.deleteDrugById(id);
-    }
-
-    public void deleteDrugByName(String name) {
-        drugRepository.deleteDrugByName(name);
     }
 }

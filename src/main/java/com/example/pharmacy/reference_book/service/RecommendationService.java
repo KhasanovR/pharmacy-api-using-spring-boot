@@ -1,5 +1,6 @@
 package com.example.pharmacy.reference_book.service;
 
+import com.example.pharmacy.account.model.AppUser;
 import com.example.pharmacy.reference_book.exception.RecommendationNotFoundException;
 import com.example.pharmacy.reference_book.model.Recommendation;
 import com.example.pharmacy.reference_book.repository.RecommendationRepository;
@@ -7,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.time.Instant;
 import java.util.Collection;
 
 @Service
@@ -19,8 +21,13 @@ public class RecommendationService {
         this.recommendationRepository = recommendationRepository;
     }
 
-    public Recommendation saveRecommendation(Recommendation recommendation) {
-        return recommendationRepository.save(recommendation);
+    public Recommendation saveRecommendation(Recommendation recommendation, AppUser user) {
+        Recommendation save = recommendationRepository.save(recommendation);
+        save.setCreatedAt(Instant.now());
+        save.setCreatedBy(user);
+        save.setLastModifiedAt(save.getCreatedAt());
+        save.setLastModifiedBy(save.getCreatedBy());
+        return save;
     }
 
     public Collection<Recommendation> getRecommendations() {
@@ -35,23 +42,15 @@ public class RecommendationService {
                 );
     }
 
-    public Recommendation findRecommendationByName(String name) {
-        return recommendationRepository
-                .findByName(name)
-                .orElseThrow(
-                        () -> new RecommendationNotFoundException("Recommendation by name " + name + " was not found")
-                );
-    }
-
-    public Recommendation updateRecommendation(Recommendation recommendation) {
-        return recommendationRepository.save(recommendation);
+    public Recommendation updateRecommendation(Recommendation recommendation, AppUser user) {
+        Recommendation update = recommendationRepository.save(recommendation);
+        update.setLastModifiedAt(Instant.now());
+        update.setLastModifiedBy(user);
+        return update;
     }
 
     public void deleteRecommendationById(Long id) {
         recommendationRepository.deleteRecommendationById(id);
     }
 
-    public void deleteRecommendationByName(String name) {
-        recommendationRepository.deleteRecommendationByName(name);
-    }
 }
