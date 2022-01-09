@@ -12,6 +12,7 @@ import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
 import java.time.Instant;
+import java.util.Set;
 
 import static javax.persistence.GenerationType.AUTO;
 
@@ -42,6 +43,10 @@ public class Order {
     @ManyToOne
     @JoinColumn(name = "cancelled_by_id")
     private AppUser cancelledBy;
+    @OneToMany(targetEntity = OrderItem.class)
+    private Set<OrderItem> orderItems;
+    @OneToMany(targetEntity = OrderPayment.class)
+    private Set<OrderPayment> orderPayments;
 
     public Boolean isCancelled(){
         return this.cancelledAt != null;

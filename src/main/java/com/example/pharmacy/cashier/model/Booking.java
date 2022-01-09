@@ -49,6 +49,9 @@ public class Booking {
     @JoinColumn(name = "cancelled_by_id")
     private AppUser cancelledBy;
 
+    @OneToMany(targetEntity = BookingItem.class)
+    private Set<BookingItem> bookingItems;
+
     @OneToMany(targetEntity = InventoryItem.class)
     private Set<InventoryItem> inventoryItems;
 
