@@ -22,6 +22,8 @@ public class AppUser {
     private String name;
     @Column(unique = true, nullable = false)
     private String username;
+    @Column(unique = true, nullable = false)
+    private String email;
     private String password;
     @ManyToMany(fetch = EAGER)
     private Collection<UserRole> roles = new ArrayList<>();
