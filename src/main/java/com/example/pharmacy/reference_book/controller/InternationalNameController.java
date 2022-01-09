@@ -1,10 +1,14 @@
 package com.example.pharmacy.reference_book.controller;
 
+import com.example.pharmacy.account.model.AppUser;
+import com.example.pharmacy.account.service.AppUserService;
 import com.example.pharmacy.reference_book.model.InternationalName;
 import com.example.pharmacy.reference_book.service.InternationalNameService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -17,10 +21,12 @@ import java.util.Collection;
 public class InternationalNameController {
 
     private final InternationalNameService internationalNameService;
+    private final AppUserService appUserService;
 
     @Autowired
-    public InternationalNameController(InternationalNameService internationalNameService) {
+    public InternationalNameController(InternationalNameService internationalNameService, AppUserService appUserService) {
         this.internationalNameService = internationalNameService;
+        this.appUserService = appUserService;
     }
 
     @GetMapping("/all")
@@ -38,21 +44,28 @@ public class InternationalNameController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<?> registerInternationalName(@RequestBody InternationalName internationalName) {
-        InternationalName savedInternationalName = this.internationalNameService.saveInternationalName(internationalName);
-        URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/international-names/").toUriString()
+    public ResponseEntity<?> registerInternationalName(@RequestBody InternationalName internationalName, @AuthenticationPrincipal UserDetails userDetails) {
+        log.info("adding drug: {}", internationalName);
+        String username = userDetails.getUsername();
+        AppUser user = appUserService.getUser(username);
+        InternationalName savedInternationalName = this.internationalNameService.saveInternationalName(internationalName, user);
+        URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/international-names/").toUriString()
                 + savedInternationalName.getId());
         return ResponseEntity.created(uri).body(savedInternationalName);
     }
 
     @PutMapping("/update")
-    public ResponseEntity<?> updateInternationalName(@RequestBody InternationalName drug) {
-        InternationalName updatedInternationalName = this.internationalNameService.updateInternationalName(drug);
+    public ResponseEntity<?> updateInternationalName(@RequestBody InternationalName internationalName, @AuthenticationPrincipal UserDetails userDetails) {
+        log.info("updating internationalName: {}", internationalName);
+        String username = userDetails.getUsername();
+        AppUser user = appUserService.getUser(username);
+        InternationalName updatedInternationalName = this.internationalNameService.updateInternationalName(internationalName, user);
         return ResponseEntity.ok().body(updatedInternationalName);
     }
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<?> removeInternationalNameById(@PathVariable("id") Long id){
+        log.info("deleting international name with id: {}", id);
         this.internationalNameService.deleteInternationalNameById(id);
         return ResponseEntity.ok().build();
     }

@@ -42,10 +42,12 @@ public class Drug {
     @Column
     private String dose;
     @Column(columnDefinition = "INT(11) DEFAULT 1")
+    private Integer piece;
+    @Column
     private String barcode;
     @Column(columnDefinition = "BOOLEAN DEFAULT FALSE")
     private Boolean special;
-    private Integer piece;
+    @Column
     private String description;
     @Column(columnDefinition = "BOOLEAN DEFAULT FALSE")
     private Boolean system;
@@ -55,16 +57,18 @@ public class Drug {
             joinColumns = @JoinColumn(name = "drug_id"),
             inverseJoinColumns = @JoinColumn(name = "recommendation_id"))
     private Set<Recommendation> recommendations;
+    @Column(nullable = false, updatable = false)
     @CreatedDate
     private Instant createdAt;
     @CreatedBy
     @ManyToOne
-    @JoinColumn(name = "created_by_id")
+    @JoinColumn(name = "created_by_id", nullable = false, updatable = false)
     private AppUser createdBy;
+    @Column(nullable = false)
     @LastModifiedDate
     private Instant LastModifiedAt;
     @ManyToOne
-    @JoinColumn(name = "last_modified_by_id")
+    @JoinColumn(name = "last_modified_by_id", nullable = false)
     @LastModifiedBy
     private AppUser LastModifiedBy;
 }

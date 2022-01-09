@@ -1,5 +1,6 @@
 package com.example.pharmacy.reference_book.service;
 
+import com.example.pharmacy.account.model.AppUser;
 import com.example.pharmacy.reference_book.exception.PharmaGroupNotFoundException;
 import com.example.pharmacy.reference_book.model.PharmaGroup;
 import com.example.pharmacy.reference_book.repository.PharmaGroupRepository;
@@ -7,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.time.Instant;
 import java.util.Collection;
 
 @Service
@@ -19,8 +21,13 @@ public class PharmaGroupService {
         this.pharmaGroupRepository = pharmaGroupRepository;
     }
 
-    public PharmaGroup savePharmaGroup(PharmaGroup pharmaGroup) {
-        return pharmaGroupRepository.save(pharmaGroup);
+    public PharmaGroup savePharmaGroup(PharmaGroup pharmaGroup, AppUser user) {
+        PharmaGroup save = pharmaGroupRepository.save(pharmaGroup);
+        save.setCreatedAt(Instant.now());
+        save.setCreatedBy(user);
+        save.setLastModifiedAt(save.getCreatedAt());
+        save.setLastModifiedBy(save.getCreatedBy());
+        return save;
     }
 
     public Collection<PharmaGroup> getPharmaGroups() {
@@ -35,23 +42,15 @@ public class PharmaGroupService {
                 );
     }
 
-    public PharmaGroup findPharmaGroupByName(String name) {
-        return pharmaGroupRepository
-                .findByName(name)
-                .orElseThrow(
-                        () -> new PharmaGroupNotFoundException("PharmaGroup by name " + name + " was not found")
-                );
-    }
-
-    public PharmaGroup updatePharmaGroup(PharmaGroup pharmaGroup) {
-        return pharmaGroupRepository.save(pharmaGroup);
+    public PharmaGroup updatePharmaGroup(PharmaGroup pharmaGroup, AppUser user) {
+        PharmaGroup update = pharmaGroupRepository.save(pharmaGroup);
+        update.setLastModifiedAt(Instant.now());
+        update.setLastModifiedBy(user);
+        return update;
     }
 
     public void deletePharmaGroupById(Long id) {
         pharmaGroupRepository.deletePharmaGroupById(id);
     }
 
-    public void deletePharmaGroupByName(String name) {
-        pharmaGroupRepository.deletePharmaGroupByName(name);
-    }
 }

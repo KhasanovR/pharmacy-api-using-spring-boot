@@ -27,16 +27,18 @@ public class Recommendation {
     private String name;
     @ManyToMany(mappedBy = "recommendations")
     Set<Drug> drugs;
+    @Column(nullable = false, updatable = false)
     @CreatedDate
     private Instant createdAt;
     @CreatedBy
     @ManyToOne
-    @JoinColumn(name = "created_by_id")
+    @JoinColumn(name = "created_by_id", nullable = false, updatable = false)
     private AppUser createdBy;
+    @Column(nullable = false)
     @LastModifiedDate
     private Instant LastModifiedAt;
     @ManyToOne
-    @JoinColumn(name = "last_modified_by_id")
+    @JoinColumn(name = "last_modified_by_id", nullable = false)
     @LastModifiedBy
     private AppUser LastModifiedBy;
 }

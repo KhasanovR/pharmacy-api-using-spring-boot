@@ -20,7 +20,10 @@ public class AppUser {
     @GeneratedValue(strategy = AUTO)
     private Long id;
     private String name;
+    @Column(unique = true, nullable = false)
     private String username;
+    @Column(unique = true, nullable = false)
+    private String email;
     private String password;
     @ManyToMany(fetch = EAGER)
     private Collection<UserRole> roles = new ArrayList<>();

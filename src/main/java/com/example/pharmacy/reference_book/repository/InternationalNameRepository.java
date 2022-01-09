@@ -9,6 +9,5 @@ import java.util.Optional;
 @Repository
 public interface InternationalNameRepository extends JpaRepository<InternationalName, Long> {
     Optional<InternationalName> findById(Long id);
-    InternationalName findInternationalNameById(Long id);
     void deleteInternationalNameById(Long id);
 }

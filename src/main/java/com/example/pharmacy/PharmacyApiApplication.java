@@ -30,10 +30,10 @@ public class PharmacyApiApplication {
             userService.saveUserRole(new UserRole(null, "ROLE_PHARMACIST"));
             userService.saveUserRole(new UserRole(null, "ROLE_ADMIN"));
 
-            userService.saveAppUser(new AppUser(null, "John Travolt", "john", "1234", new ArrayList<>()));
-            userService.saveAppUser(new AppUser(null, "Will Smith", "will", "1234", new ArrayList<>()));
-            userService.saveAppUser(new AppUser(null, "Jim Carry", "jim", "1234", new ArrayList<>()));
-            userService.saveAppUser(new AppUser(null, "Arnold Toms", "arnold", "1234", new ArrayList<>()));
+            userService.saveAppUser(new AppUser(null, "John Travolt", "john", "john@gmail.com", "1234", new ArrayList<>()));
+            userService.saveAppUser(new AppUser(null, "Will Smith", "will", "will@gmail.com", "1234", new ArrayList<>()));
+            userService.saveAppUser(new AppUser(null, "Jim Carry", "jim", "jim@gmail.com", "1234", new ArrayList<>()));
+            userService.saveAppUser(new AppUser(null, "Arnold Toms", "arnold", "arnold@gmail.com", "1234", new ArrayList<>()));
 
             userService.addUserRoleToAppUser("john", "ROLE_PHARMACIST");
             userService.addUserRoleToAppUser("john", "ROLE_PHARMACIST");
