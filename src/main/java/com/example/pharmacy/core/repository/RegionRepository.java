@@ -11,10 +11,5 @@ import java.util.Optional;
 @Repository
 public interface RegionRepository extends JpaRepository<Region, Long> {
     Optional<Region> findById(Long id);
-    Region findRegionById(Long id);
-    Collection<Region> findRegionsByCountry(Country country);
-    Collection<Region> findRegionsByParent(Region parent);
     void deleteRegionById(Long id);
-    void deleteRegionsByCountry(Country country);
-    void deleteRegionsByParent(Region parent);
 }
