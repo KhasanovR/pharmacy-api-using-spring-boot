@@ -30,7 +30,7 @@ public class InventoryItemService {
     }
 
 
-    public Collection<InventoryItem> getInventoryItemsByBranch(Long InventoryId) {
+    public Collection<InventoryItem> getInventoryItemsByIventory(Long InventoryId) {
         return inventoryRepository.findById(InventoryId).orElseThrow(
                 () -> new InventoryNotFoundException("Inventory by id " + InventoryId + " was not found")
         ).getInventoryItems();

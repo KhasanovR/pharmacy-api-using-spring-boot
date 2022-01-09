@@ -27,7 +27,7 @@ public class InventoryItemController {
 
     @GetMapping("/all")
     public ResponseEntity<?> findInventoryItems(@PathVariable("branchId") Long branchId, @PathVariable("inventoryId") Long inventoryId) {
-        Collection<InventoryItem> inventoryItems = this.inventoryItemService.getInventoryItemsByBranch(branchId);
+        Collection<InventoryItem> inventoryItems = this.inventoryItemService.getInventoryItemsByIventory(inventoryId);
         log.info("listing inventory items: {}", inventoryItems);
         return ResponseEntity.ok().body(inventoryItems);
     }

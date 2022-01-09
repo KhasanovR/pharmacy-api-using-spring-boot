@@ -82,12 +82,4 @@ public class InventoryService {
         inventory.setCancelledAt(Instant.now());
         inventory.setCancelledBy(user);
     }
-
-    public Boolean isAnyActive() {
-        return inventoryRepository
-                .findAll()
-                .stream()
-                .anyMatch(Inventory::isActive);
-    }
-
 }
