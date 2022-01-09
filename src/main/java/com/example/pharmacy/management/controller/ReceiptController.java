@@ -16,7 +16,7 @@ import java.net.URI;
 import java.util.Collection;
 
 @RestController
-@RequestMapping("/api/branch/{branchId}/receipts")
+@RequestMapping("/api/branches/{branchId}/receipts")
 @Slf4j
 public class ReceiptController {
 

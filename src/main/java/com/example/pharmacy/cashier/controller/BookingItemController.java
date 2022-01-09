@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Collection;
 
 @RestController
-@RequestMapping("/api/branch/{branchId}/bookings/{bookingId}/booking-items")
+@RequestMapping("/api/branches/{branchId}/bookings/{bookingId}/booking-items")
 @Slf4j
 public class BookingItemController {
 
