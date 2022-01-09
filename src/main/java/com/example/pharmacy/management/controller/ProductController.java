@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Collection;
 
 @RestController
-@RequestMapping("/api/branch/{branchId}/products")
+@RequestMapping("/api/branches/{branchId}/products")
 @Slf4j
 public class ProductController {
 

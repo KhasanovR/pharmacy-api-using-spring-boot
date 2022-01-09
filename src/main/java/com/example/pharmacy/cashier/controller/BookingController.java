@@ -17,7 +17,7 @@ import java.net.URI;
 import java.util.Collection;
 
 @RestController
-@RequestMapping("/api/branch/{branchId}/bookings")
+@RequestMapping("/api/branches/{branchId}/bookings")
 @Slf4j
 public class BookingController {
 

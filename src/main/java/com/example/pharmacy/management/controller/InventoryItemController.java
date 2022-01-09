@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Collection;
 
 @RestController
-@RequestMapping("/api/branch/{branchId}/inventory/{inventoryId}/inventory-items")
+@RequestMapping("/api/branches/{branchId}/inventory/{inventoryId}/inventory-items")
 @Slf4j
 public class InventoryItemController {
 

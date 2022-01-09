@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Collection;
 
 @RestController
-@RequestMapping("/api/branch/{branchId}/orders/{orderId}/order-payments")
+@RequestMapping("/api/branches/{branchId}/orders/{orderId}/order-payments")
 @Slf4j
 public class OrderPaymentController {
 

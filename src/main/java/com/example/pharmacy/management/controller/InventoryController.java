@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Collection;
 
 @RestController
-@RequestMapping("/api/branch/{branchId}/inventories")
+@RequestMapping("/api/branches/{branchId}/inventories")
 @Slf4j
 public class InventoryController {
 

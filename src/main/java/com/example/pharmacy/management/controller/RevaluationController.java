@@ -16,7 +16,7 @@ import java.net.URI;
 import java.util.Collection;
 
 @RestController
-@RequestMapping("/api/branch/{branchId}/revaluations")
+@RequestMapping("/api/branches/{branchId}/revaluations")
 @Slf4j
 public class RevaluationController {
 
@@ -49,7 +49,8 @@ public class RevaluationController {
         String username = userDetails.getUsername();
         AppUser user = appUserService.getUser(username);
         Revaluation savedRevaluation = this.revaluationService.saveRevaluation(branchId, revaluation, user);
-        URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/Revaluations/").toUriString()
+        URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/branches/").toUriString()
+                +branchId+"/revaluations/"
                 + savedRevaluation.getId());
         return ResponseEntity.created(uri).body(savedRevaluation);
     }

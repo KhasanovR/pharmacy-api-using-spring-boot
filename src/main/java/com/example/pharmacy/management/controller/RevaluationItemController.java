@@ -18,7 +18,7 @@ import java.util.Collection;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/branch/{branchId}/revaluations/{revaluationId}/revaluations")
+@RequestMapping("/api/branches/{branchId}/revaluations/{revaluationId}/revaluations")
 @Slf4j
 public class RevaluationItemController {
 
@@ -51,9 +51,9 @@ public class RevaluationItemController {
         String username = userDetails.getUsername();
         AppUser user = appUserService.getUser(username);
         RevaluationItem savedRevaluationItem = this.revaluationItemService.saveRevaluationItem(branchId, revaluationId, revaluationItem, user);
-        URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/RevaluationItems/").toUriString()
-                + branchId + "/receipts/"
-                + revaluationId + "/receipt-items/"
+        URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/branches/").toUriString()
+                + branchId + "/revaluations/"
+                + revaluationId + "/revaluation-items/"
                 + revaluationItem.getId());
         return ResponseEntity.created(uri).body(savedRevaluationItem);
     }
