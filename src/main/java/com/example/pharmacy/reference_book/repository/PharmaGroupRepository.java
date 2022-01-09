@@ -9,9 +9,5 @@ import java.util.Optional;
 @Repository
 public interface PharmaGroupRepository extends JpaRepository<PharmaGroup, Long> {
     Optional<PharmaGroup> findById(Long id);
-    Optional<PharmaGroup> findByName(String name);
-    PharmaGroup findPharmaGroupById(Long id);
-    PharmaGroup findPharmaGroupByName(String name);
     void deletePharmaGroupById(Long id);
-    void deletePharmaGroupByName(String name);
 }
