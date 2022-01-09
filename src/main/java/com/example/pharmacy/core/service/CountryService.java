@@ -36,25 +36,14 @@ public class CountryService {
                 );
     }
 
-    public Country findCountryByName(String name) {
-        return countryRepository
-                .findByName(name)
-                .orElseThrow(
-                        () -> new CountryNotFoundException("Country by name " + name + " was not found")
-                );
-    }
-
-    public Country updateCountry(Country country) {
-        return countryRepository.save(country);
+    public Country updateCountry(Country country, AppUser user) {
+        Country update = countryRepository.save(country);
+        update.setLastModifiedAt(Instant.now());
+        update.setLastModifiedBy(user);
+        return update;
     }
 
     public void deleteCountryById(Long id) {
         countryRepository.deleteCountryById(id);
     }
-
-    public void deleteCountryByName(String name) {
-        countryRepository.deleteCountryByName(name);
-    }
-
-
 }
