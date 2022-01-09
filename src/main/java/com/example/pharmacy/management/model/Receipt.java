@@ -34,6 +34,7 @@ public class Receipt {
     private Branch branch;
     @Column(unique = true, nullable = false)
     private String documentNumber;
+    @Column(nullable = false)
     private LocalDate arrivalDate;
     @Column(nullable = false, updatable = false)
     @CreatedDate

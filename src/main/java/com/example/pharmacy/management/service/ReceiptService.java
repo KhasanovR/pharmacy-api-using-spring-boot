@@ -7,6 +7,7 @@ import com.example.pharmacy.management.exception.ReceiptNotFoundException;
 import com.example.pharmacy.management.model.ProductEvent;
 import com.example.pharmacy.management.model.Receipt;
 import com.example.pharmacy.management.repository.BranchRepository;
+import com.example.pharmacy.management.repository.ProductEventRepository;
 import com.example.pharmacy.management.repository.ReceiptRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,12 +22,14 @@ import java.util.Collection;
 public class ReceiptService {
     private final BranchRepository branchRepository;
     private final ReceiptRepository receiptRepository;
+    private final ProductEventRepository productEventRepository;
     private final ThrowableChecker throwableChecker;
 
     @Autowired
-    public ReceiptService(BranchRepository branchRepository, ReceiptRepository receiptRepository, ThrowableChecker throwableChecker) {
+    public ReceiptService(BranchRepository branchRepository, ReceiptRepository receiptRepository, ProductEventRepository productEventRepository, ThrowableChecker throwableChecker) {
         this.branchRepository = branchRepository;
         this.receiptRepository = receiptRepository;
+        this.productEventRepository = productEventRepository;
         this.throwableChecker = throwableChecker;
     }
 
@@ -83,6 +86,7 @@ public class ReceiptService {
             productEvent.setType(ProductEventType.RECEIPT_ACCEPT.name());
             productEvent.setQuantity(receiptItem.getQuantity());
             productEvent.setCreatedBy(user);
+            productEventRepository.save(productEvent);
         });
     }
 

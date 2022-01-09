@@ -1,6 +1,8 @@
 package com.example.pharmacy.management.model;
 
 import com.example.pharmacy.account.model.AppUser;
+import com.example.pharmacy.cashier.model.Booking;
+import com.example.pharmacy.cashier.model.Order;
 import com.example.pharmacy.core.model.Region;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -88,5 +90,9 @@ public class Branch {
     private Set<Revaluation> revaluations;
     @OneToMany(targetEntity = RevaluationItem.class)
     private Set<RevaluationItem> revaluationItems;
+    @OneToMany(targetEntity = Booking.class)
+    private Set<Booking> bookings;
+    @OneToMany(targetEntity = Order.class)
+    private Set<Order> orders;
 
 }
